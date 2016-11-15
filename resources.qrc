@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/countries.kml</file>
+        <file>Resources/states_low.kml</file>
+    </qresource>
+</RCC>
