@@ -1,8 +1,6 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2016-11-10T19:55:37
-#
-#-------------------------------------------------
+# Copyright (c) 2016 Jeison Santiago
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 QT       += core gui svg webenginewidgets opengl printsupport xml
 
