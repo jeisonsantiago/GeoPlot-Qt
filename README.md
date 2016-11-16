@@ -1,5 +1,5 @@
 # GeoPlot
-A simple ploting tool with a worldmap, rulers and title using **QGraphicsView** and **QGraphicsSene** from **Qt**.  
+A simple plotting tool with a worldmap, rulers and title using **QGraphicsView** and **QGraphicsSene** from **Qt**.  
 You could even export the viewport as SVG(testing) and PNG.
 
 # Motivation
@@ -10,7 +10,7 @@ simple to plot wind trajectories.
 Just clone and open the project file with **QtCreator**, have fun!
 
 # Usage
-The fastest way is just copy these files to your project:
+The fastest way is just copy these files into your project:
 
 *GeoGraphicsView.h*  
 *GeoGraphicsView.cpp*  
@@ -42,10 +42,10 @@ Any questions mail me: jeison.santiago at gmail.com
 
 # Screenshots
 GeoView example  
-<img src="/home/magat5u/Desktop/QT_NEW_TESTS/GEOPLOT/img/geoview_noborder.png" alt="Drawing" style="width: 80%;"/></br>
+<img src="https://github.com/jeisonsantiago/GeoPlot-Qt/blob/master/img/geoview_noborder.png" alt="" height="70%" width="60%"/></br>
 
 GeoView example with the border on, so you could export nice figures ;)
-<img src="/home/magat5u/Desktop/QT_NEW_TESTS/GEOPLOT/img/geoview_border.png" alt="Drawing" style="width: 80%;"/></br>
+<img src="https://github.com/jeisonsantiago/GeoPlot-Qt/blob/master/img/geoview_border.png" alt="" height="70%" width="60%"/></br>
 
 # License
 [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.php)
