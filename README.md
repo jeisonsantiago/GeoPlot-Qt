@@ -42,10 +42,10 @@ Any questions mail me: jeison.santiago at gmail.com
 
 # Screenshots
 GeoView example  
-<img src="https://github.com/jeisonsantiago/GeoPlot-Qt/blob/master/img/geoview_noborder.png" alt="" height="70%" width="60%"/></br>
+<img src="https://github.com/jeisonsantiago/GeoPlot-Qt/blob/master/img/geoview_noborder.png" alt="" height="70%" width="70%"/></br>
 
 GeoView example with the border on, so you could export nice figures ;)
-<img src="https://github.com/jeisonsantiago/GeoPlot-Qt/blob/master/img/geoview_border.png" alt="" height="70%" width="60%"/></br>
+<img src="https://github.com/jeisonsantiago/GeoPlot-Qt/blob/master/img/geoview_border.png" alt="" height="70%" width="70%"/></br>
 
 # License
 [The MIT License (MIT)](http://www.opensource.org/licenses/mit-license.php)
