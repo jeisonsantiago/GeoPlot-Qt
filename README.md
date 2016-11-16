@@ -37,7 +37,7 @@ this->setCentralWidget(geoview);
 and check the example project to see the details.
 
 # Note
-Feel free to use it, this is a relative new project and I am still learning Qt and C++.\
+Feel free to use it, this is a relative new project and I am still learning Qt and C++.  
 Any questions mail me: jeison.santiago at gmail.com
 
 # Screenshots
