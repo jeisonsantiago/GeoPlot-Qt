@@ -33,6 +33,7 @@ public:
     qreal currentScale() const;
 
     void exportSVG(const QString fileName, const QString title = "", const QString description = "");
+    void exportPNG(const QString fileName);
 
     int getBorderLenght() const;
 
@@ -79,10 +80,13 @@ private:
     QList<ItemGroup*> m_group;
 
     qreal m_currentScale;
+    qreal m_transformScale;
     bool m_borderRuler;
     bool m_grid;
     bool m_axisLabel;
     bool m_firstUpdate;
+
+    QPen m_globePen;
 
     QPen m_noPen;
     QPen m_blackPen;

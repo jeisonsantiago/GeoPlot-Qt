@@ -14,10 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // center windows
     this->centerWindow();
 
+    this->setWindowTitle("GeoView");
+
     // start geo view
     m_geoview = new GeoGraphicsView(this);
     m_geoview->loadKmz(":Resources/countries.kml",true);
-    m_geoview->loadKmz(":Resources/states_low.kml",false,4,1000000,false);
+    m_geoview->loadKmz(":Resources/states_low.kml",false,3.5,1000000,false);
 
     // put into layout
     QGridLayout *layGrid = new QGridLayout();
@@ -62,6 +64,20 @@ void MainWindow::centerWindow()
 
 void MainWindow::saveSVG()
 {
-    QString file = qApp->applicationDirPath()+"/teste.svg";
-    m_geoview->exportSVG(file);
+    QString selectedFilter;
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                               qApp->applicationDirPath()+"/untitled.svg",
+                               tr("Scalable Vector Graphics SVG (*.svg);;Portable Network Graphics PNG (*.png)"),&selectedFilter);
+
+
+
+
+    if(fileName.isEmpty()) return;
+    //QFileInfo finfo(fileName);
+    if(selectedFilter.contains("svg"))
+        m_geoview->exportSVG(fileName);
+    else if(selectedFilter.contains("png"))
+        m_geoview->exportPNG(fileName);
+
+    //m_geoview->exportSVG(fileName);
 }

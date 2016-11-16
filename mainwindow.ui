@@ -40,9 +40,6 @@
        <bool>false</bool>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="4" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBoxFontSizeTitle"/>
-       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
@@ -57,13 +54,6 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QPushButton" name="pushButtonSaveSVG">
-         <property name="text">
-          <string>SaveSVG</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QCheckBox" name="checkBoxBorderRuler">
          <property name="text">
@@ -71,15 +61,15 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBoxFontSize"/>
+       </item>
        <item row="1" column="0">
         <widget class="QCheckBox" name="checkBoxGrid">
          <property name="text">
           <string>Grid</string>
          </property>
         </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBoxFontSize"/>
        </item>
        <item row="6" column="1">
         <widget class="QLineEdit" name="lineEditTitle"/>
@@ -108,7 +98,7 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="8" column="1">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -120,6 +110,16 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="4" column="1">
+        <widget class="QDoubleSpinBox" name="doubleSpinBoxFontSizeTitle"/>
+       </item>
+       <item row="7" column="1">
+        <widget class="QPushButton" name="pushButtonSaveSVG">
+         <property name="text">
+          <string>Save Image</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

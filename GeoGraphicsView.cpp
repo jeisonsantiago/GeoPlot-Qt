@@ -10,6 +10,70 @@ GeoGraphicsView::GeoGraphicsView(QWidget *parent) : QGraphicsView(parent)
     this->initSetup();
 }
 
+void GeoGraphicsView::initSetup()
+{
+    this->setAttribute(Qt::WA_Hover );
+    this->setAttribute(Qt::WA_MouseTracking);
+    this->setMouseTracking(true);
+    this->viewport()->setMouseTracking(true);
+
+    // set geoscene
+    m_pgeoScene = new GeoScene(this);
+    //m_pgeoScene->setSceneRect(-180, -90, 360, 180);
+    m_pgeoScene->setSceneRect(-300, -150, 600, 300);
+    this->setScene(m_pgeoScene);
+    this->scale(2.5f,-2.5f);
+
+    //connect(this, SIGNAL(viewportEvent()),this,SLOT(viewportChanged()));
+
+    //set transformations by input
+    this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    this->setDragMode(QGraphicsView::ScrollHandDrag);
+
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    this->setBackgroundBrush(QBrush(QColor("#D1D1D1")));
+
+    this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+    this->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+
+    // if no OPENGL ON
+    //this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+
+    this->setRenderHints(QPainter::HighQualityAntialiasing | QPainter::SmoothPixmapTransform);
+
+
+    //this->update();
+
+    // set internal variables
+    m_borderRuler = false;
+    m_grid = true;
+    m_axisLabel = true;
+    m_borderLenght = 60;
+
+    // black pen setup
+    m_blackPen.setColor(Qt::black);
+    m_blackPen.setWidthF(1.5);
+
+    // grid pen setup
+    m_gridPen.setColor(QColor(192,192,192,180));
+    //m_gridPen.setColor(Qt::white);
+    m_gridPen.setWidthF(1);
+    QVector<qreal> dashes;
+    qreal space = 4;
+    qreal lineLenght = 20;
+    dashes << lineLenght << space << lineLenght << space << lineLenght <<
+              space << lineLenght << space << lineLenght << space;
+    m_gridPen.setDashPattern(dashes);
+
+    //fonts first update flag
+    m_firstUpdate = true;
+
+
+    //m_title = "TITLE";
+
+}
 
 void GeoGraphicsView::resizeEvent(QResizeEvent *event)
 {
@@ -57,10 +121,9 @@ void GeoGraphicsView::mouseReleaseEvent(QMouseEvent *event)
 
 void GeoGraphicsView::paintEvent(QPaintEvent * event)
 {
+    //qDebug() << this->transform();
     //qDebug() << "Painter Event";
-
 //    QRect rect(10,10,10,10);
-//    QPainter p(this);
 //    p.setPen(Qt::blue);
 //    p.drawText(QRect(10,10,40,30),"TEXT");
 //    QPainter painter;
@@ -68,9 +131,9 @@ void GeoGraphicsView::paintEvent(QPaintEvent * event)
 //    painter.setRenderHint(QPainter::Antialiasing);
 //    paint(painter);
 //    painter.end();
-
-
     QGraphicsView::paintEvent(event);
+
+    m_transformScale = this->transform().m11();
 }
 
 void GeoGraphicsView::drawForeground(QPainter *painter, const QRectF &rect)
@@ -81,70 +144,6 @@ void GeoGraphicsView::drawForeground(QPainter *painter, const QRectF &rect)
 
     if(m_borderRuler)
         this->drawGridTitle(painter);
-}
-
-void GeoGraphicsView::initSetup()
-{
-    this->setAttribute(Qt::WA_Hover );
-    this->setAttribute(Qt::WA_MouseTracking);
-    this->setMouseTracking(true);
-    this->viewport()->setMouseTracking(true);
-
-    // set geoscene
-    m_pgeoScene = new GeoScene(this);
-    //m_pgeoScene->setSceneRect(-180, -90, 360, 180);
-    m_pgeoScene->setSceneRect(-300, -150, 600, 300);
-    this->setScene(m_pgeoScene);
-    this->scale(2.5f,-2.5f);
-
-    //connect(this, SIGNAL(viewportEvent()),this,SLOT(viewportChanged()));
-
-    //set transformations by input
-    this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-    this->setDragMode(QGraphicsView::ScrollHandDrag);
-
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    this->setBackgroundBrush(QBrush(QColor("#D1D1D1")));
-
-    this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
-    this->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
-
-    // if no OPENGL ON
-    //this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
-
-    this->setRenderHints(QPainter::HighQualityAntialiasing | QPainter::SmoothPixmapTransform);
-
-    //this->update();
-
-    // set internal variables
-    m_borderRuler = false;
-    m_grid = true;
-    m_axisLabel = true;
-    m_borderLenght = 60;
-
-    // black pen setup
-    m_blackPen.setColor(Qt::black);
-    m_blackPen.setWidthF(1.5);
-
-    // grid pen setup
-    m_gridPen.setColor(QColor(192,192,192,180));
-    //m_gridPen.setColor(Qt::white);
-    m_gridPen.setWidthF(1);
-    QVector<qreal> dashes;
-    qreal space = 4;
-    qreal lineLenght = 20;
-    dashes << lineLenght << space << lineLenght << space << lineLenght <<
-              space << lineLenght << space << lineLenght << space;
-    m_gridPen.setDashPattern(dashes);
-
-    //fonts first update flag
-    m_firstUpdate = true;
-
-
-    //m_title = "TITLE";
-
 }
 
 QString GeoGraphicsView::getTitle() const
@@ -276,7 +275,6 @@ void GeoGraphicsView::exportSVG(const QString fileName, const QString title, con
     // TODO: verifi if it has SVG extension
     generator.setFileName(fileName);
     generator.setSize(rect.size());
-    //generator.setResolution(200);
     generator.setViewBox(rect);
 
     if(!title.isEmpty())
@@ -295,6 +293,23 @@ void GeoGraphicsView::exportSVG(const QString fileName, const QString title, con
     this->posExportSVG();
 
     qDebug() << "SUCCESS EXPORTED SVG FILE" << fileName;
+}
+
+void GeoGraphicsView::exportPNG(const QString fileName)
+{
+    if(fileName.isEmpty()) return;
+
+    // get viewport
+    QRectF viewPort = this->viewport()->rect();
+
+    // set pixmap
+    QPixmap pmax(viewPort.size().toSize());
+    QPainter painter(&pmax);
+    painter.setRenderHint(QPainter::Antialiasing);
+    this->render(&painter,viewPort,viewPort.toRect());
+
+    // save image
+    pmax.save(fileName,"png");
 }
 
 void GeoGraphicsView::drawGridTitle(QPainter *painter)
@@ -415,6 +430,7 @@ void GeoGraphicsView::drawGridTitle(QPainter *painter)
         rectTitle = metrics.boundingRect("latitude");
         float centerY = viewPort.center().y();
 
+        // rotate painter so we could draw latitude vertically
         painter->save();
         painter->rotate(-90);
         painter->drawText(-centerY-(rectTitle.width()/2),leftAxisLabel-(rectTitle.height()),"latitude");
@@ -434,14 +450,26 @@ void GeoGraphicsView::drawGridTitle(QPainter *painter)
 void GeoGraphicsView::prepareToExportSVG(QRectF rectViewport)
 {
     for (int g = 0; g < m_group.size(); ++g) {
-        qDebug() << "groups" << g;
 
         QList<QGraphicsItem*> groupIn = m_group[g]->childItems();
 
         foreach (QGraphicsItem *item, groupIn) {
-            //qDebug() << "item:" << item;
-            if(!rectViewport.intersects(item->boundingRect()))
+            if(!rectViewport.intersects(item->boundingRect())){
                 item->setVisible(false);
+            }else{
+                 QAbstractGraphicsShapeItem *abstractItem = dynamic_cast<QAbstractGraphicsShapeItem*>(item);
+                 QPen p = abstractItem->pen();
+                 p.setCosmetic(false);
+                 p.setWidthF( p.widthF() / m_transformScale  );
+
+                 if(!p.dashPattern().isEmpty()){
+                   QVector<qreal> dashPatter = p.dashPattern();
+                   dashPatter[0] = dashPatter[0] / m_transformScale;
+                   dashPatter[1] = dashPatter[1] / m_transformScale;
+                   p.setDashPattern(dashPatter);
+                 }
+                 abstractItem->setPen(p);
+            }
         }
     }
 }
@@ -449,12 +477,27 @@ void GeoGraphicsView::prepareToExportSVG(QRectF rectViewport)
 void GeoGraphicsView::posExportSVG()
 {
     for (int g = 0; g < m_group.size(); ++g) {
-        qDebug() << "groups" << g;
 
         QList<QGraphicsItem*> groupIn = m_group[g]->childItems();
 
         foreach (QGraphicsItem *item, groupIn) {
             item->setVisible(true);
+
+            QAbstractGraphicsShapeItem *abstractItem = dynamic_cast<QAbstractGraphicsShapeItem*>(item);
+            QPen p = abstractItem->pen();
+
+            if(!p.isCosmetic()){
+                p.setCosmetic(true);
+                p.setWidthF( p.widthF() * m_transformScale );
+
+                if(!p.dashPattern().isEmpty()){
+                  QVector<qreal> dashPatter = p.dashPattern();
+                  dashPatter[0] = dashPatter[0] * m_transformScale;
+                  dashPatter[1] = dashPatter[1] * m_transformScale;
+                  p.setDashPattern(dashPatter);
+                }
+                abstractItem->setPen(p);
+            }
         }
     }
 }
@@ -473,31 +516,21 @@ void GeoGraphicsView::loadKmz(const QString xmlGeoFile, bool fillVector, int vis
     QXmlStreamReader reader;
     reader.setDevice(&filex);
 
-    QPen pen;
-
     //pen.setJoinStyle(Qt::RoundJoin);
-    pen.setCosmetic(true);
+
+    m_globePen.setCosmetic(true);
+
+
     if(fillVector){
-        pen.setWidthF(1.4);
-        //pen.setWidthF(0);
-//        pen.setColor(Qt::black);
-        pen.setColor(QColor("#999999"));
-
-        //brush.setColor(QColor("#D9D9D9"));
+        m_globePen.setWidthF(1.4);
+        m_globePen.setColor(QColor("#999999"));
     }else{
-        pen.setWidthF(1);
-        //pen.setStyle(Qt::DashLine);
-        QVector<qreal> dashes;
-        qreal space = 4;
-        dashes << 6 << space << 6 << space << 6 << space << 6 << space << 6 << space;
-        pen.setDashPattern(dashes);
-
-        //pen.setWidthF(0);
-        //pen.setColor(QColor("#00394c"));
-        pen.setColor(QColor("#BBBBBB"));
+        m_globePen.setWidthF(1);
+        m_globePen.setStyle(Qt::DashLine);
+        m_globePen.setColor(QColor("#BBBBBB"));
     }
-    // polygon item end
 
+    // polygon item end
     ItemGroup *group = new ItemGroup;
     m_group.append(group);
 
@@ -512,32 +545,23 @@ void GeoGraphicsView::loadKmz(const QString xmlGeoFile, bool fillVector, int vis
         /* If token is StartElement, we'll see if we can read it.*/
         if(token == QXmlStreamReader::StartElement) {
             if(reader.name() == "name") {
-                //ui->listWidget->addItem("Element: "+reader.name().toString());
-                //qDebug() << reader.name().toString() << reader.readElementText();
                 continue;
             }
 
             if(reader.name() == "color") {
-                //ui->listWidget->addItem("Element: "+reader.name().toString());
-                //qDebug() << reader.name().toString() << reader.readElementText();
                 continue;
             }
 
             if(reader.name() == "coordinates") {
-                //ui->listWidget->addItem("Element: "+reader.name().toString());
-                //qDebug() << reader.name().toString() << reader.readElementText();
-                //readCoodinates(reader.readElementText());
-
                 if(fillVector){
-                    //m_pgeoView->scene()->addPolygon(Helper::readCoodinates(reader.readElementText()),pen,blackBrush);
                     QGraphicsPolygonItem *poly = new QGraphicsPolygonItem(readCoodinates(reader.readElementText()));
-                    poly->setPen(pen);
+                    poly->setPen(m_globePen);
                     poly->setBrush(QBrush(QColor("#FAFAFA")));
                     group->addToGroup(poly);
 
                 }else{
                     QGraphicsPathItem *path = new QGraphicsPathItem(setPath(reader.readElementText()));
-                    path->setPen(pen);
+                    path->setPen(m_globePen);
                     group->addToGroup(path);
                 }
                 continue;

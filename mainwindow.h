@@ -18,6 +18,7 @@
 #include <QXmlStreamWriter>
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QFileDialog>
 
 #include "GeoGraphicsView.h"
 
