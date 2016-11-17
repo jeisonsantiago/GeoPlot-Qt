@@ -2,7 +2,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-QT       += core gui svg webenginewidgets opengl printsupport xml
+QT       += core gui svg opengl printsupport xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
