@@ -24,8 +24,6 @@ void GeoGraphicsView::initSetup()
     this->setScene(m_pgeoScene);
     this->scale(2.5f,-2.5f);
 
-    //connect(this, SIGNAL(viewportEvent()),this,SLOT(viewportChanged()));
-
     //set transformations by input
     this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     this->setDragMode(QGraphicsView::ScrollHandDrag);
@@ -42,9 +40,6 @@ void GeoGraphicsView::initSetup()
     //this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 
     this->setRenderHints(QPainter::HighQualityAntialiasing | QPainter::SmoothPixmapTransform);
-
-
-    //this->update();
 
     // set internal variables
     m_borderRuler = false;
@@ -69,10 +64,6 @@ void GeoGraphicsView::initSetup()
 
     //fonts first update flag
     m_firstUpdate = true;
-
-
-    //m_title = "TITLE";
-
 }
 
 void GeoGraphicsView::resizeEvent(QResizeEvent *event)
@@ -121,18 +112,7 @@ void GeoGraphicsView::mouseReleaseEvent(QMouseEvent *event)
 
 void GeoGraphicsView::paintEvent(QPaintEvent * event)
 {
-    //qDebug() << this->transform();
-    //qDebug() << "Painter Event";
-//    QRect rect(10,10,10,10);
-//    p.setPen(Qt::blue);
-//    p.drawText(QRect(10,10,40,30),"TEXT");
-//    QPainter painter;
-//    painter.begin(this);
-//    painter.setRenderHint(QPainter::Antialiasing);
-//    paint(painter);
-//    painter.end();
     QGraphicsView::paintEvent(event);
-
     m_transformScale = this->transform().m11();
 }
 
