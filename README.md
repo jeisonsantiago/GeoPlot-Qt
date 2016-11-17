@@ -12,14 +12,14 @@ Just clone and open the project file with **QtCreator**, have fun!
 # Usage
 The fastest way is just copy these files into your project:
 
-*GeoGraphicsView.h*  
-*GeoGraphicsView.cpp*  
-*GeoScene.h*  
-*GeoScene.cpp*  
-*ItemGroup.h*  
-*ItemGroup.cpp*  
-*countries.kml*  
-*states_low.kml*
+ - GeoGraphicsView.h  
+ - GeoGraphicsView.cpp  
+ - GeoScene.h  
+ - GeoScene.cpp  
+ - ItemGroup.h  
+ - ItemGroup.cpp  
+ - countries.kml  
+ - states_low.kml
 
 and make sure that you point to the right directory  
 when loading the kmz files.
