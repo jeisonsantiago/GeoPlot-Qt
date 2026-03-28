@@ -63,6 +63,7 @@ protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
     void drawForeground(QPainter *painter, const QRectF &rect);
 
+
     void prepareToExportSVG(QRectF rectViewport);
     void posExportSVG();
     QPolygonF readCoodinates(QString coodinates);
@@ -97,6 +98,8 @@ private:
     QFont m_labelFont;
     int m_borderLenght;
     QString m_title;
+
+
 
 };
 

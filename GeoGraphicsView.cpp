@@ -33,8 +33,8 @@ void GeoGraphicsView::initSetup()
 
     this->setBackgroundBrush(QBrush(QColor("#D1D1D1")));
 
-    // this->setViewport(new QOpenGLWidget());
-    this->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    this->setViewport(new QOpenGLWidget());
+    this->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
     // if no OPENGL ON
     //this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);

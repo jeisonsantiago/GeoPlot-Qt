@@ -15,7 +15,7 @@ class GeoScene : public QGraphicsScene
 public:
     GeoScene(QObject *parent = Q_NULLPTR);
 
-private:
+
 };
 
 #endif // GEOSCENE_H

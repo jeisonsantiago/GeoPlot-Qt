@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Svg OpenGL PrintSupport Xml)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Svg OpenGL PrintSupport Xml OpenGLWidgets)
 
 qt_add_executable(GeoPlot
     main.cpp
@@ -33,5 +33,5 @@ target_link_libraries(GeoPlot PRIVATE
     Qt6::OpenGL
     Qt6::PrintSupport
     Qt6::Xml
-    Qt6::OpenGL
+    Qt6::OpenGLWidgets
 )

@@ -8,4 +8,3 @@ GeoScene::GeoScene(QObject *parent) : QGraphicsScene(parent)
 {
 
 }
-
