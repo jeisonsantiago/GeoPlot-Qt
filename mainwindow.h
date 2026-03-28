@@ -7,8 +7,9 @@
 
 #include <QMainWindow>
 #include <QApplication>
-#include <QDesktopWidget>
-#include <QWebEngineView>
+// #include <QDesktopWidget>
+#include <QScreen>
+// #include <QWebEngineView>
 #include <QPushButton>
 #include <QGridLayout>
 #include <QPolygonF>

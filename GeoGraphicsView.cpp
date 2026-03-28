@@ -33,13 +33,13 @@ void GeoGraphicsView::initSetup()
 
     this->setBackgroundBrush(QBrush(QColor("#D1D1D1")));
 
-    this->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+    // this->setViewport(new QOpenGLWidget());
     this->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
 
     // if no OPENGL ON
     //this->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 
-    this->setRenderHints(QPainter::HighQualityAntialiasing | QPainter::SmoothPixmapTransform);
+    this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
     // set internal variables
     m_borderRuler = false;
@@ -79,7 +79,9 @@ void GeoGraphicsView::wheelEvent(QWheelEvent *event)
     static double currentScale = 1.0;  // stores the current scale value.
     //static const double scaleMin = 1.1; // defines the min scale limit.
 
-    if(event->delta() > 0)
+    // qDebug() << event->angleDelta();
+
+    if(event->angleDelta().y() > 0)
     {
         // Zoom in
         this->scale(scaleFactor, scaleFactor);
@@ -214,7 +216,7 @@ QPolygonF GeoGraphicsView::readCoodinates(QString coodinates)
     if(coodinates.isEmpty())
         return res;
 
-    QStringList latlng = coodinates.split(QRegExp("[,\\s]"));
+    QStringList latlng = coodinates.split(QRegularExpression("[,\\s]"));
 
     for (int i = 0; i < latlng.size(); i+=2) {
         res.append(QPointF(latlng[i].toFloat(),latlng[i+1].toFloat()));
@@ -229,7 +231,7 @@ QPainterPath GeoGraphicsView::setPath(QString coodinates){
     if(coodinates.isEmpty())
         return res;
 
-    QStringList latlng = coodinates.split(QRegExp("[,\\s]"));
+    QStringList latlng = coodinates.split(QRegularExpression("[,\\s]"));
 
     for (int i = 0; i < latlng.size(); i+=2) {
         poly.append(QPointF(latlng[i].toFloat(),latlng[i+1].toFloat()));

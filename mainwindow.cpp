@@ -51,8 +51,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::centerWindow()
 {
-    int screenWidth = QApplication::desktop()->screen()->width();
-    int screenHeight = QApplication::desktop()->screen()->height();
+    auto const rect = QApplication::screens()[0]->size();
+    int screenWidth = rect.width();
+    int screenHeight = rect.height();
     int WIDTH = screenWidth / 1.5f;
     int HEIGHT = screenHeight / 1.5f;
     int x, y;

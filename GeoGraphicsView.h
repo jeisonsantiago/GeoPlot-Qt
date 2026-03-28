@@ -9,10 +9,11 @@
 #include <QGraphicsView>
 #include <QDebug>
 #include <QGraphicsRectItem>
-#include <QGraphicsSvgItem>
+// #include <QGraphicsSvgItem>
 #include <QWheelEvent>
 #include <QXmlStreamReader>
-#include <QGLWidget>
+// #include <QGLWidget>
+#include <QtOpenGLWidgets/QtOpenGLWidgets>
 #include <QSvgGenerator>
 #include <QTextItem>
 #include <QFontMetrics>
