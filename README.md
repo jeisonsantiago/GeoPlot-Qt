@@ -1,5 +1,6 @@
 # GeoPlot
-A simple plotting tool with a worldmap, rulers and title using **QGraphicsView** and **QGraphicsSene** from **Qt**.  
+A geospatial visualization tool for Qt6 — world map rendering, 
+measurement rulers, and annotation support.
 You could even export the viewport as SVG(testing) and PNG.
 
 # Motivation
